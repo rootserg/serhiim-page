@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growing Differently - Modern Child Development</title>
+    <meta name="description" content="Modern approaches to child development — in one place for parents and educators">
+
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Warm, friendly color palette */
+            --color-primary: #FF6B6B;        /* Coral - bright accent */
+            --color-secondary: #FED9B7;      /* Peach pastel */
+            --color-tertiary: #F8E8EE;       /* Light pink pastel */
+            --color-accent: #A8DADC;         /* Soft blue */
+            --color-dark: #2D3142;           /* Deep navy for text */
+            --color-light: #FDFBF7;          /* Warm white */
+            --color-gray: #9DA4B5;           /* Soft gray */
+
+            /* Typography */
+            --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --font-heading: 'Georgia', serif;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+
+            /* Border radius */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--color-dark);
+            background-color: var(--color-light);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--color-dark);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--color-dark);
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        p {
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-dark);
+            opacity: 0.9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--color-light);
+            padding: var(--spacing-md) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-family: var(--font-heading);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-md);
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--spacing-xl) 0;
+            background: linear-gradient(135deg, var(--color-tertiary) 0%, var(--color-secondary) 100%);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--color-dark);
+            opacity: 0.8;
+            margin-bottom: var(--spacing-lg);
+            font-weight: 400;
+        }
+
+        .hero-illustration {
+            font-size: 5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Section Styles */
+        section {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--color-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .feature-card {
+            background: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-card h3 {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--color-accent);
+            background: linear-gradient(135deg, rgba(168, 218, 220, 0.3) 0%, rgba(253, 217, 183, 0.3) 100%);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Topics Section */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .topic-tag {
+            background: white;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            text-align: center;
+            border-left: 4px solid var(--color-primary);
+            transition: all 0.3s ease;
+        }
+
+        .topic-tag:hover {
+            background: var(--color-tertiary);
+            transform: scale(1.05);
+        }
+
+        .topic-tag h4 {
+            margin: 0;
+            color: var(--color-dark);
+            font-size: 1.1rem;
+        }
+
+        /* Resources Section */
+        .resource-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .resource-content {
+            padding: var(--spacing-md);
+        }
+
+        .resource-card h3 {
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.5rem;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #ff8787 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            color: white;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: var(--spacing-lg) auto 0;
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-family: var(--font-primary);
+        }
+
+        .newsletter-form input:focus {
+            outline: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-newsletter {
+            background-color: white;
+            color: var(--color-primary);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-newsletter:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--color-tertiary);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-methods {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            margin-top: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .contact-card {
+            background: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .contact-card a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-dark);
+            color: white;
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: white;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            margin-top: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: var(--spacing-sm);
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            section {
+                padding: var(--spacing-lg) 0;
+            }
+
+            .hero {
+                padding: var(--spacing-lg) 0;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                min-width: 100%;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Growing Differently 🌱</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#topics">Topics</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content fade-in">
+            <div class="hero-illustration">🌈✨</div>
+            <h1>Growing Differently</h1>
+            <p class="tagline">Modern approaches to child development — in one place for parents and educators</p>
+            <div class="hero-buttons">
+                <a href="#topics" class="btn btn-primary">Explore Topics</a>
+                <a href="#newsletter" class="btn btn-secondary">Get Updates</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Growing Differently?</h2>
+                <p class="section-subtitle">Evidence-based approaches to support every child's unique journey</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Research-Based</h3>
+                    <p>All our content is grounded in the latest child development research and best practices from leading experts worldwide.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Practical Tools</h3>
+                    <p>Get actionable strategies and activities you can implement today, whether at home or in the classroom.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Inclusive Approach</h3>
+                    <p>Celebrate neurodiversity and support every child's strengths with methods that honor different learning styles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container about-content">
+            <h2>About Our Approach</h2>
+            <p>Growing Differently brings together modern, evidence-based child development methods that respect each child's unique way of learning and growing.</p>
+            <p>We believe in moving beyond traditional one-size-fits-all approaches to embrace methods that honor neurodiversity, support emotional intelligence, and foster creativity.</p>
+            <p>Whether you're a parent exploring new ways to support your child or an educator seeking fresh perspectives, you'll find practical, compassionate guidance here.</p>
+        </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section id="topics">
+        <div class="container">
+            <div class="section-header">
+                <h2>Key Topics We Cover</h2>
+                <p class="section-subtitle">Explore modern approaches across essential development areas</p>
+            </div>
+            <div class="topics-grid">
+                <div class="topic-tag">
+                    <h4>🧠 Neurodiversity</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>💭 Emotional Intelligence</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>🎨 Creative Learning</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>🌟 Positive Discipline</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>🗣️ Communication Skills</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>🎭 Play-Based Learning</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>🧩 Sensory Development</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>🌍 Cultural Awareness</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>📱 Digital Literacy</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>🏃 Physical Development</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>👨‍👩‍👧 Family Dynamics</h4>
+                </div>
+                <div class="topic-tag">
+                    <h4>📖 Literacy & Language</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Resources</h2>
+                <p class="section-subtitle">Curated guides, articles, and tools for modern parenting and education</p>
+            </div>
+            <div class="resource-cards">
+                <div class="resource-card">
+                    <div class="resource-image">📘</div>
+                    <div class="resource-content">
+                        <h3>Getting Started Guide</h3>
+                        <p>New to modern child development approaches? Start here with our comprehensive beginner's guide covering fundamental principles and practices.</p>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-image">🎯</div>
+                    <div class="resource-content">
+                        <h3>Activity Library</h3>
+                        <p>Browse our collection of age-appropriate activities designed to support cognitive, emotional, and physical development through play.</p>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-image">💡</div>
+                    <div class="resource-content">
+                        <h3>Expert Insights</h3>
+                        <p>Read interviews and articles from leading child psychologists, educators, and researchers sharing their latest findings and recommendations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="newsletter" class="newsletter">
+        <div class="container">
+            <h2>Stay Connected</h2>
+            <p>Get monthly insights, new resources, and practical tips delivered to your inbox</p>
+
+            <!-- Option 1: Mailto link (simple approach) -->
+            <div class="newsletter-form">
+                <a href="mailto:hello@growingdifferently.com?subject=Subscribe to Newsletter&body=Please subscribe me to the Growing Differently newsletter.%0D%0A%0D%0AName:%0D%0AEmail:" class="btn btn-newsletter">Subscribe via Email</a>
+            </div>
+
+            <!-- Option 2: Embedded Google Form (uncomment and replace with your Google Form embed code)
+            <div class="newsletter-form">
+                <iframe src="YOUR_GOOGLE_FORM_EMBED_URL" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+            -->
+
+            <!-- Option 3: Tally Form (uncomment and replace with your Tally form embed code)
+            <div class="newsletter-form">
+                <iframe data-tally-src="YOUR_TALLY_FORM_URL" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0" title="Newsletter Signup"></iframe>
+                <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+            </div>
+            -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container contact-content">
+            <h2>Get In Touch</h2>
+            <p>Have questions? Want to collaborate? We'd love to hear from you!</p>
+            <div class="contact-methods">
+                <div class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <h4>Email</h4>
+                    <a href="mailto:hello@growingdifferently.com">hello@growingdifferently.com</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📝</div>
+                    <h4>Contact Form</h4>
+                    <a href="mailto:hello@growingdifferently.com?subject=Contact Form Submission">Send Message</a>
+                    <!-- Replace with Google Form or Tally link: -->
+                    <!-- <a href="YOUR_GOOGLE_FORM_URL" target="_blank">Send Message</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Growing Differently. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#topics">Topics</a>
+                <a href="#resources">Resources</a>
+                <a href="#contact">Contact</a>
+                <a href="mailto:hello@growingdifferently.com">Privacy Policy</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">
+                Supporting parents and educators with modern, evidence-based approaches to child development
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animate cards on scroll
+        document.querySelectorAll('.feature-card, .resource-card, .topic-tag').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

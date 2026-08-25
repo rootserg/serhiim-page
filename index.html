@@ -841,6 +841,7 @@
                 );
                 const payload = {
                     formId: "01a038dc-a3ca-75b4-a84e-0d6e312ed189",
+                    publicationId: "01a038f1-0198-7c50-9f59-958f353c8723",
                     contact: email ? { email } : { phone: { number: phone, country: 'ZZ' } },
                     formData: { fields: controls.map(control => ({
                         fieldId: control.name,
@@ -857,8 +858,7 @@
                     const response = await window['fetch'](endpoint, {
                         method: 'POST',
                         headers: {
-                            'content-type': 'application/json',
-                            'x-original-domain': 'serhiim.page'
+                            'content-type': 'application/json'
                         },
                         body: JSON.stringify(payload),
                     });

@@ -1,8 +1,14 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "serhiim-page",
-  "compatibility_date": "2026-08-20",
-  "assets": {
-    "directory": "."
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "serhiim-page",
+    "compatibility_date": "2026-08-20",
+    "assets": {
+      "directory": "."
+    },
+    "routes": [
+      {
+        "pattern": "serhiim.page/*",
+        "zone_name": "serhiim.page"
+      }
+    ]
   }
-}

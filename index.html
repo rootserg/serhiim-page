@@ -856,7 +856,10 @@
                 try {
                     const response = await window['fetch'](endpoint, {
                         method: 'POST',
-                        headers: { 'content-type': 'application/json' },
+                        headers: {
+                            'content-type': 'application/json',
+                            'x-original-domain': 'serhiim.page'
+                        },
                         body: JSON.stringify(payload),
                     });
                     if (!response.ok) throw new Error((await response.json().catch(() => null))?.message || 'Submission failed');

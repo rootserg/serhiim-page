@@ -507,6 +507,33 @@
         .fade-in {
             animation: fadeInUp 0.8s ease-out;
         }
+
+        /* Hosted Form Styles */
+        .hosted-form {
+            display: grid;
+            gap: 1rem;
+            max-width: 42rem;
+            padding: 1.5rem;
+            border: 1px solid #d8e1e8;
+            border-radius: 0.75rem;
+            font-family: system-ui, sans-serif;
+            color: #152033;
+            background: #fff;
+            margin: var(--spacing-lg) auto 0;
+        }
+        .hosted-form label { display: grid; gap: 0.4rem; font-weight: 600; }
+        .hosted-form input, .hosted-form textarea, .hosted-form select {
+            padding: 0.75rem; border: 1px solid #bcc9d4; border-radius: 0.45rem; font: inherit;
+        }
+        .hosted-form textarea { min-height: 8rem; resize: vertical; }
+        .hosted-form button {
+            padding: 0.8rem 1.2rem; border: 0; border-radius: 0.45rem;
+            color: #fff; background: #117f75; font: inherit; font-weight: 700; cursor: pointer;
+        }
+        .hosted-form button:disabled { cursor: wait; opacity: 0.65; }
+        .hosted-form__consent { grid-template-columns: auto 1fr; align-items: start; font-weight: 400 !important; }
+        .hosted-form__status { min-height: 1.5rem; margin: 0; }
+        .hosted-form__status[data-state="error"] { color: #b42318; }
     </style>
 </head>
 <body>
@@ -685,18 +712,43 @@
         <div class="container contact-content">
             <h2>Get In Touch</h2>
             <p>Have questions? Want to collaborate? We'd love to hear from you!</p>
+
+            <!-- Integrated Contact Form -->
+            <form id="hosted-form-01a038dc-a3ca-75b4-a84e-0d6e312ed189" class="hosted-form">
+                <h3 style="margin: 0;">Contact Us</h3>
+                <p style="margin: 0; opacity: 0.8;">Fill out the form below and we'll get back to you soon.</p>
+                <label>Name
+                    <input type="text" name="displayName" data-field-type="text" required>
+                </label>
+                <label>Email
+                    <input type="email" name="email" data-field-type="email" required>
+                </label>
+                <label>Phone
+                    <input type="text" name="phone" data-field-type="phone">
+                </label>
+                <label>Message
+                    <textarea name="message" data-field-type="textarea" required></textarea>
+                </label>
+                <label>First Name
+                    <input type="text" name="FirstName" data-field-type="text">
+                </label>
+                <label class="hosted-form__consent">
+                    <input type="checkbox" name="consent-0" data-consent-types="toc,contact" required>
+                    <span>I agree to be contacted about this request and accept the Privacy Policy & Terms of service.</span>
+                </label>
+                <label class="hosted-form__consent">
+                    <input type="checkbox" name="consent-1" data-consent-types="marketing_emails">
+                    <span>I agree to receive product updates and marketing emails.</span>
+                </label>
+                <button type="submit">Submit</button>
+                <p class="hosted-form__status" role="status" aria-live="polite"></p>
+            </form>
+
             <div class="contact-methods">
                 <div class="contact-card">
                     <div class="contact-icon">✉️</div>
                     <h4>Email</h4>
                     <a href="mailto:hello@growingdifferently.com">hello@growingdifferently.com</a>
-                </div>
-                <div class="contact-card">
-                    <div class="contact-icon">📝</div>
-                    <h4>Contact Form</h4>
-                    <a href="mailto:hello@growingdifferently.com?subject=Contact Form Submission">Send Message</a>
-                    <!-- Replace with Google Form or Tally link: -->
-                    <!-- <a href="YOUR_GOOGLE_FORM_URL" target="_blank">Send Message</a> -->
                 </div>
             </div>
         </div>
@@ -756,6 +808,68 @@
                 }
             });
         });
+
+        // Hosted Form Handler
+        (() => {
+            const form = document.getElementById("hosted-form-01a038dc-a3ca-75b4-a84e-0d6e312ed189");
+            const endpoint = "https://forms-api-d.aimix.io/v1/submissions";
+            const status = form.querySelector('.hosted-form__status');
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const button = form.querySelector('button[type="submit"]');
+                const data = new FormData(form);
+                const controls = [...form.querySelectorAll('[data-field-type]')];
+                const emailControl = controls.find(control => control.type === 'email' || control.name === 'email');
+                const phoneControl = controls.find(control => control.type === 'tel' || control.name === 'phone');
+                const email = emailControl ? String(data.get(emailControl.name) || '').trim() : '';
+                const phone = phoneControl ? String(data.get(phoneControl.name) || '').trim() : '';
+
+                if (!email && !phone) {
+                    status.textContent = 'This form requires an email or phone field.';
+                    status.dataset.state = 'error';
+                    return;
+                }
+
+                const consents = [...form.querySelectorAll('[data-consent-types]:checked')].flatMap(control =>
+                    control.dataset.consentTypes.split(',').filter(Boolean).map(consentType => ({
+                        consentType,
+                        status: 'granted',
+                        grantedAt: new Date().toISOString(),
+                        consentText: control.parentElement.innerText.trim(),
+                    }))
+                );
+                const payload = {
+                    formId: "01a038dc-a3ca-75b4-a84e-0d6e312ed189",
+                    contact: email ? { email } : { phone: { number: phone, country: 'ZZ' } },
+                    formData: { fields: controls.map(control => ({
+                        fieldId: control.name,
+                        fieldType: control.dataset.fieldType,
+                        value: control.type === 'checkbox' ? control.checked : String(data.get(control.name) || ''),
+                    })) },
+                    consents,
+                };
+
+                button.disabled = true;
+                status.textContent = 'Sending…';
+                delete status.dataset.state;
+                try {
+                    const response = await window['fetch'](endpoint, {
+                        method: 'POST',
+                        headers: { 'content-type': 'application/json' },
+                        body: JSON.stringify(payload),
+                    });
+                    if (!response.ok) throw new Error((await response.json().catch(() => null))?.message || 'Submission failed');
+                    form.reset();
+                    status.textContent = 'Thank you. Your response has been received.';
+                } catch (error) {
+                    status.textContent = error instanceof Error ? error.message : 'Submission failed';
+                    status.dataset.state = 'error';
+                } finally {
+                    button.disabled = false;
+                }
+            });
+        })();
     </script>
 </body>
 </html>

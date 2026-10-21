@@ -1,0 +1,24 @@
+.hosted-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 42rem;
+  padding: 1.5rem;
+  border: 1px solid #d8e1e8;
+  border-radius: 0.75rem;
+  font-family: system-ui, sans-serif;
+  color: #152033;
+  background: #fff;
+}
+.hosted-form label { display: grid; gap: 0.4rem; font-weight: 600; }
+.hosted-form input, .hosted-form textarea, .hosted-form select {
+  padding: 0.75rem; border: 1px solid #bcc9d4; border-radius: 0.45rem; font: inherit;
+}
+.hosted-form textarea { min-height: 8rem; resize: vertical; }
+.hosted-form button {
+  padding: 0.8rem 1.2rem; border: 0; border-radius: 0.45rem;
+  color: #fff; background: #117f75; font: inherit; font-weight: 700; cursor: pointer;
+}
+.hosted-form button:disabled { cursor: wait; opacity: 0.65; }
+.hosted-form__consent { grid-template-columns: auto 1fr; align-items: start; font-weight: 400 !important; }
+.hosted-form__status { min-height: 1.5rem; margin: 0; }
+.hosted-form__status[data-state="error"] { color: #b42318; }
